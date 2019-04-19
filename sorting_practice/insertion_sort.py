@@ -13,13 +13,11 @@ def insertion_sort(arr):
         for j in range(i):
             # 이미 정렬된 부분을 돌면서 자리를 찾는다
             if arr[i] < arr[j]:
-                temp = arr.pop(i)
-                arr.insert(j, temp)
+                arr[i], arr[j] = arr[j], arr[i]
 
         print("결과 : " + str(arr))
 
     return arr
 
 
-test_case = list(map(int, input().split(',')))
-print("결과 : " + str(insertion_sort(test_case)))
+print("결과 : " + str(insertion_sort([2, 4, 6, 4, 7, 8, 3])))
