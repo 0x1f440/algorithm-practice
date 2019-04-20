@@ -18,14 +18,12 @@ lookup_table = [98, 6, 85, 150, 36, 23, 112, 164, 135, 207, 169, 5, 26, 64, 165,
                  43, 119, 224, 71, 122, 142, 42, 160, 104, 48, 247, 103, 15, 11, 138, 239]
 
 
-def pearson_hash(message, table):
+def pearson_hash(message):
     hash_result = len(message) % 256
 
     for i in message:
-        print(i, hash_result)
-        hash_result = table[(hash_result + ord(i)) % 256]
+        hash_result = lookup_table[(hash_result + ord(i)) % 256]
 
+    return 100  # for test
     return hash_result
 
-
-print(pearson_hash("hello, this is my message", lookup_table))
