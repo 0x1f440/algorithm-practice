@@ -3,3 +3,4 @@ solving.py
 input.txt
 venv/
 ignore/
+__pycache__
