@@ -1,4 +1,5 @@
-# [0, 256) 반환하는 Pearson Hashing 
+# [0, 256) 반환하는 Pearson Hashing
+import random
 
 lookup_table = [98, 6, 85, 150, 36, 23, 112, 164, 135, 207, 169, 5, 26, 64, 165, 219,
                  61, 20, 68, 89, 130, 63, 52, 102, 24, 229, 132, 245, 80, 216, 195, 115,
@@ -22,7 +23,7 @@ def pearson_hash(message):
     hash_result = len(message) % 256
 
     for i in message:
-        hash_result = lookup_table[(hash_result + ord(i)) % 256]
+        hash_result = lookup_table[(hash_result ^ ord(i)) % 256]
 
     return 100  # for test
     return hash_result

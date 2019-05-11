@@ -3,7 +3,7 @@
 # 맞는 인덱스의 원소와 교환함
 
 
-def selection_sort(arr):
+def old_selection_sort(arr):
     for i in range(len(arr)): 
         min_val = arr[i]
         min_index = i
@@ -17,5 +17,20 @@ def selection_sort(arr):
     return arr
 
 
-test_case = list(map(int, input().split(',')))
+def selection_sort(arr):
+    for i in range(len(arr)):
+        min_val = arr[i]
+        min_idx = i
+        for j in range(i, len(arr)):
+            if min_val > arr[j]:
+                min_val = arr[j]
+                min_idx = j
+
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+        print(arr)
+
+    return arr
+
+
+test_case = [2, 46, 23, 6, 74, 1, 0, 324]
 print("selection : " + str(selection_sort(test_case)))

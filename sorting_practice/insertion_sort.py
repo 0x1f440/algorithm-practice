@@ -6,18 +6,29 @@
 # in-place 알고리즘이다.
 
 
-def insertion_sort(arr):
+def insertion_sort_old(arr):
     for i in range(1, len(arr)):
-        # 첫 번째 원소는 이미 정렬되어 있는 것과 마찬가지기 때문에 두 번째 원소부터 시작
-        print(str(i) + "번째 / 삽입될 원소 : " + str(arr[i]))
         for j in range(i):
-            # 이미 정렬된 부분을 돌면서 자리를 찾는다
             if arr[i] < arr[j]:
                 arr[i], arr[j] = arr[j], arr[i]
-
+                print(arr[:i])
         print("결과 : " + str(arr))
 
     return arr
 
 
-print("결과 : " + str(insertion_sort([2, 4, 6, 4, 7, 8, 3])))
+def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        for j in range(i, 0, -1):
+            if arr[j-1] > arr[j]:
+                arr[j-1], arr[j] = arr[j], arr[j-1]
+                print(arr[:i])
+        print("결과 : " + str(arr))
+
+    return arr
+
+
+print(" 최종결과 : " + str(insertion_sort([2, 4, 6, 4, 7, 8, 3])))
+# 근데 결국 거의 똑같은 코드같아 보임
+# 새 배열을 만들어서 넣을까 했는데 거기도 하나하나 넣으면서 원소들이 밀리는 거는 똑같음
+# 더 이상 최적화 어떻게 하죠?
