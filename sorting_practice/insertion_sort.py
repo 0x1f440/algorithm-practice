@@ -9,7 +9,7 @@
 def insertion_sort_old(arr):
     for i in range(1, len(arr)):
         # 첫 번째 원소는 이미 정렬되어 있는 것과 마찬가지기 때문에 두 번째 원소부터 시작
-        print(str(i) + "번째 / 삽입될 원소 : " + str(arr[i]))
+        print(f"{i}번째 / 삽입될 원소 : {arr[i]}")
         for j in range(i):
             # 이미 정렬된 부분을 돌면서 자리를 찾는다
             if arr[i] < arr[j]:
@@ -27,11 +27,12 @@ def insertion_sort(arr):
         index_to_insert = i
 
         for j in reversed(range(i)):
-            if arr[j] > value_to_insert:
-                arr[j+1] = arr[j]
-                index_to_insert = j
-            else:
+            if arr[j] <= value_to_insert:
                 break
+
+            arr[j+1] = arr[j]
+            index_to_insert = j
+
         arr[index_to_insert] = value_to_insert
 
         print(f"정렬된 배열 : {arr[:i]}")
@@ -39,4 +40,4 @@ def insertion_sort(arr):
     return arr
 
 
-print("최종결과 : " + str(insertion_sort([4, 3, 1, 0, 2, 1, 6, 5, 7, 8])))
+print("최종결과 : ", insertion_sort([4, 4, 3, 1, 0, 2, 1, 6, 5, 7, 8]))
