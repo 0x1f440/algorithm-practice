@@ -25,10 +25,10 @@ class SplayTree:
 
     def get_node_and_parents(self, query):
         node = self.root
-        stack = []
+        parents = []
 
         while node.value != query:
-            stack.append(node)
+            parents.append(node)
             if node.value > query:
                 node = node.left
             else:
@@ -37,42 +37,42 @@ class SplayTree:
         if not node:
             raise KeyError(f"키 : {query} 가 존재하지 않습니다")
 
-        return node, stack
+        return node,     parents
 
     def splay(self, query):
-        new_root, stack = self.get_node_and_parents(query)
-        print(f"\n====== splay start ======\n{new_root} will be splayed and parents are {stack}")
+        node_to_splay, parents = self.get_node_and_parents(query)
+        print(f"\n====== splay start ======\n{node_to_splay} will be splayed and parents are {parents}")
 
-        if new_root is self.root:
+        if node_to_splay is self.root:
             print(f"{query}은/는 이미 루트입니다!")
             return
 
         # while parent is not root
-        while len(stack) > 1:
-            old_root = stack.pop()
-            grand_parent = stack[-1]
+        while len(parents) > 1:
+            old_root = parents.pop()
+            grand_parent = parents[-1]
 
-            if new_root.value < old_root.value:
-                old_root.left = new_root.right
-                new_root.right = old_root
+            if node_to_splay.value < old_root.value:
+                old_root.left = node_to_splay.right
+                node_to_splay.right = old_root
             else:  # new_root.value > old_root.value:
-                old_root.right = new_root.left
-                new_root.left = old_root
+                old_root.right = node_to_splay.left
+                node_to_splay.left = old_root
 
             if old_root.value < grand_parent.value:
-                grand_parent.left = new_root
+                grand_parent.left = node_to_splay
             else:
-                grand_parent.right = new_root
+                grand_parent.right = node_to_splay
 
         #  when parent is root
-        if new_root.value < self.root.value:
-            self.root.left = new_root.right
-            new_root.right = self.root
-            self.root = new_root
+        if node_to_splay.value < self.root.value:
+            self.root.left = node_to_splay.right
+            node_to_splay.right = self.root
+            self.root = node_to_splay
         else:
-            self.root.right = new_root.left
-            new_root.left = self.root
-            self.root = new_root
+            self.root.right = node_to_splay.left
+            node_to_splay.left = self.root
+            self.root = node_to_splay
 
         print("====== splay result ======")
         self.bfs()
@@ -115,9 +115,9 @@ class SplayTree:
         if self.count <= 1:
             raise ValueError("트리의 원소는 1개 이상이어야 합니다.")
 
-        delete_node, _ = self.get_node_and_parents(query)
+        delete_node = self.get_node_and_parents(query)[0]
 
-        def kill_node(node: Node, parent_node: Node):
+        def _kill_node(node: Node, parent_node: Node):
             if parent_node.value > node.value:
                 parent_node.left = None
             else:
@@ -136,11 +136,11 @@ class SplayTree:
                     parent = replace_node
                     replace_node = replace_node.right
 
-            kill_node(replace_node, parent)
+            _kill_node(replace_node, parent)
             delete_node.value = replace_node.value
 
         else:  # 자식이 없다면 그냥 지우기
-            kill_node(delete_node)
+            _kill_node(delete_node)
 
         self.count -= 1
         print(f"{query} 삭제 성공")
@@ -157,24 +157,29 @@ class SplayTree:
             self.dfs_in(node.right)
 
     def bfs(self):
-        queue = deque([self.root])
+        dq = deque([self.root])
         print("bfs : ", end="")
-        while queue:
-            node = queue.popleft()
+        while dq:
+            node = dq.popleft()
             print(node.value, end=" ")
 
             if node.left:
-                queue.append(node.left)
+                dq.append(node.left)
             if node.right:
-                queue.append(node.right)
+                dq.append(node.right)
         print()
 
 
-tree = SplayTree(50)
-tree.insert_nodes([30, 60, 10, 40, 90, 20, 70, 100, 15])
-tree.delete(60)
-tree.insert(Node(80))
-tree.bfs()
-tree.dfs_in()
-print()
-tree.splay(30)
+def main():
+    tree = SplayTree(50)
+    tree.insert_nodes([30, 60, 10, 40, 90, 20, 70, 100, 15])
+    tree.delete(60)
+    tree.insert(Node(80))
+    tree.bfs()
+    tree.dfs_in()
+    print()
+    tree.splay(30)
+
+
+if __name__ == "__main__":
+    main()
