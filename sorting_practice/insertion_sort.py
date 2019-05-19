@@ -8,10 +8,13 @@
 
 def insertion_sort_old(arr):
     for i in range(1, len(arr)):
+        # 첫 번째 원소는 이미 정렬되어 있는 것과 마찬가지기 때문에 두 번째 원소부터 시작
+        print(f"{i}번째 / 삽입될 원소 : {arr[i]}")
         for j in range(i):
+            # 이미 정렬된 부분을 돌면서 자리를 찾는다
             if arr[i] < arr[j]:
                 arr[i], arr[j] = arr[j], arr[i]
-                print(arr[:i])
+
         print("결과 : " + str(arr))
 
     return arr
@@ -19,16 +22,22 @@ def insertion_sort_old(arr):
 
 def insertion_sort(arr):
     for i in range(1, len(arr)):
-        for j in range(i, 0, -1):
-            if arr[j-1] > arr[j]:
-                arr[j-1], arr[j] = arr[j], arr[j-1]
-                print(arr[:i])
-        print("결과 : " + str(arr))
+        print(f"넣을 원소 : {arr[i]}")
+        value_to_insert = arr[i]
+        index_to_insert = i
+
+        for j in reversed(range(i)):
+            if arr[j] <= value_to_insert:
+                break
+
+            arr[j+1] = arr[j]
+            index_to_insert = j
+
+        arr[index_to_insert] = value_to_insert
+
+        print(f"정렬된 배열 : {arr[:i]}")
 
     return arr
 
 
-print(" 최종결과 : " + str(insertion_sort([2, 4, 6, 4, 7, 8, 3])))
-# 근데 결국 거의 똑같은 코드같아 보임
-# 새 배열을 만들어서 넣을까 했는데 거기도 하나하나 넣으면서 원소들이 밀리는 거는 똑같음
-# 더 이상 최적화 어떻게 하죠?
+print("최종결과 : ", insertion_sort([4, 4, 3, 1, 0, 2, 1, 6, 5, 7, 8]))
