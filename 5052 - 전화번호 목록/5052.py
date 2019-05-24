@@ -1,3 +1,6 @@
+import sys
+
+
 class Node:
     def __init__(self, value):
         self.value = value
@@ -23,13 +26,13 @@ class Node:
 
 
 def main():
-    for case in range(int(input())):
+    for case in range(int(sys.stdin.readline())):
         trie = Node("")
         integrity = True
         numbers = []
 
-        for _ in range(int(input())):
-            numbers.append(input())
+        for _ in range(int(sys.stdin.readline())):
+            numbers.append(sys.stdin.readline().rstrip('\n'))
 
         for number in numbers:
             if not trie.add_node(number):
