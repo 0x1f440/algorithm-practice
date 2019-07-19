@@ -4,3 +4,7 @@ input.txt
 venv/
 ignore/
 __pycache__
+*.exe
+*.h
+*.json
+.vs
