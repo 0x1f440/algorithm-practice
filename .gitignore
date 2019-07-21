@@ -1,5 +1,6 @@
 .idea
 solving.py
+solving.cpp
 input.txt
 venv/
 ignore/
