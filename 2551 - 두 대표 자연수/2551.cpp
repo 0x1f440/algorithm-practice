@@ -4,20 +4,21 @@ using namespace std;
 
 int n, m;
 int nums[5000001];
-int counter[5000001];
+int counter[10001];
 
 int main() {
 	cin >> n;
 	long long all_sum = 0;
+
 	for (int i = 0; i < n; i++) {
-		cin >> nums[i];
-		all_sum += nums[i];
+		int idx;
+		cin >> idx;
+		all_sum += idx;
+		counter[idx]++;
+
 		if (nums[i] > m)
 			m = nums[i];
 	}
-
-	for (int i = 0; i < n; i++)
-		counter[nums[i]]++;
 
 	int idx = 0;
 	for (int i = 0; i <= m; i++)
