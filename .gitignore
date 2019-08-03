@@ -4,6 +4,7 @@ solving.cpp
 input.txt
 venv/
 ignore/
+_temp/
 __pycache__
 *.exe
 *.h
